@@ -1,0 +1,34 @@
+# Môi trường ảo Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Node / npm
+node_modules/
+npm-debug.log*
+
+# Thư mục kỹ năng / agent tạm
+.agents/
+
+# File tạm của Microsoft Office (sinh ra khi mở file Word/Excel)
+~$*
+
+# File hệ điều hành (Windows / macOS)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Cấu hình IDE / Trình soạn thảo
+.vscode/
+.idea/
+
+# Log & file tạm
+*.log
+*.tmp
+
+# file docx
+*.docx
