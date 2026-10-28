@@ -297,7 +297,7 @@ function render(r) {
 
     // Các khả năng khác: ok bỏ giống đứng đầu, từ chối hiện cả giống gần nhất
     const others = isOk ? r.top5.slice(1, 5) : r.top5.slice(0, 4);
-    $('tips').hidden = isOk;
+    if ($('tips')) $('tips').hidden = isOk;
     $('why').hidden = !isOk;
     $('othTitle').textContent = isOk ? 'Các khả năng khác' : 'Máy đang phân vân giữa';
     $('othNote').hidden = isOk;

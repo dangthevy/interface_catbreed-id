@@ -4,9 +4,9 @@
  */
 
 :root {
-    /* Typography */
-    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    /* Typography (Chuẩn hóa toàn diện với Be Vietnam Pro - font chuẩn hóa tiếng Việt) */
+    --font-body: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Brand & Accent Colors */
     --primary: #0B7A75;
