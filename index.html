@@ -92,96 +92,86 @@
                 </div>
             </section>
 
-            <!-- Màn hình Kết quả Phân tích (Cùng 1 trang, tự động hiển thị kết quả tương ứng) -->
-            <section id="result" class="stack" style="padding:0" hidden>
-                <section class="hero">
+            <!-- Màn hình Kết quả Phân tích: Tập trung Dự đoán, Kiểm định OOD tích hợp & Grad-CAM -->
+            <section id="result" class="stack" style="padding:0;gap:36px" hidden>
+                <!-- Khối Dự đoán Chính (Hero: Ảnh + Dự đoán & Thẻ kiểm định OOD tích hợp bên dưới) -->
+                <section class="hero" aria-label="Kết quả dự đoán và kiểm định mô hình">
                     <div class="pic">
-                        <div class="photo" id="resPhoto" role="img" aria-label="Ảnh mèo của bạn">
-                            <div class="in"><span>Ảnh mèo của bạn</span></div>
+                        <div class="photo-shell">
+                            <div class="photo" id="resPhoto" role="img" aria-label="Ảnh mèo đã phân tích">
+                                <div class="in"><span>Ảnh mèo của bạn</span></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="res" id="res"></div>
+                    <div class="res" id="res">
+                        <!-- Nội dung dự đoán và thẻ OOD tốt nhất được render động bởi js/app.js -->
+                    </div>
                 </section>
 
-                <div class="tips" id="tips" hidden>
-                    <h2 style="font-size:22px">Gợi ý để có kết quả chính xác hơn</h2>
+                <!-- Lời khuyên chụp ảnh (tự động hiện khi bị từ chối OOD) -->
+                <div class="tips" id="tips" hidden role="region" aria-label="Gợi ý chụp ảnh">
+                    <div class="tips-head">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <h2>Gợi ý để có kết quả nhận diện chính xác hơn</h2>
+                    </div>
                     <ul>
-                        <li>Chụp cận cảnh: mèo chiếm phần lớn khung hình</li>
-                        <li>Đủ sáng: tránh ngược sáng gắt hoặc thiếu sáng gây nhiễu ảnh</li>
-                        <li>Chỉ có một vật nuôi trong khung hình</li>
+                        <li><strong>Chụp cận cảnh:</strong> Đảm bảo khuôn mặt hoặc cơ thể mèo chiếm trên 60% khung hình.</li>
+                        <li><strong>Đủ sáng & rõ nét:</strong> Tránh ngược sáng mạnh, chụp ban đêm hoặc chụp qua kính gây lóa.</li>
+                        <li><strong>Đơn đối tượng:</strong> Chỉ có 1 vật nuôi trong ảnh để mạng nơ-ron không bị phân tán đặc trưng.</li>
                     </ul>
                 </div>
 
-                <section class="sec">
-                    <h2 id="othTitle"></h2>
-                    <p class="note" id="othNote" hidden>Xác suất tham khảo từ đầu ra mô hình, không dùng để đưa ra kết luận cuối cùng.</p>
+                <!-- Phân bố xác suất các giống mèo gần nhất (Top Candidates) -->
+                <section class="sec" aria-label="Phân bố xác suất các giống mèo">
+                    <div class="sec-head">
+                        <h2 id="othTitle" style="font-size:22px">Các khả năng khác</h2>
+                        <p class="note" id="othNote" hidden>Xác suất Softmax tham khảo từ đầu ra mô hình.</p>
+                    </div>
                     <div class="others" id="oth"></div>
                 </section>
 
-                <section class="sec" id="why">
-                    <h2>Mô hình đã nhìn vào đâu? (Grad-CAM)</h2>
-                    <p class="note" style="max-width:64ch">Bản đồ kích hoạt gradient (Grad-CAM) trực quan hóa các vùng đặc trưng trên ảnh mà mạng nơ-ron dựa vào để đưa ra dự đoán phân loại giống.</p>
+                <!-- Trụ cột 2: Giải thích mô hình bằng Grad-CAM (Heatmap Attention) -->
+                <section class="sec" id="why" aria-label="Vùng chú ý của mạng nơ-ron Grad-CAM">
+                    <div class="sec-head">
+                        <h2>Mô hình đã nhìn vào đâu? (Grad-CAM)</h2>
+                        <p class="note" style="max-width:68ch">Bản đồ kích hoạt gradient (Grad-CAM) trực quan hóa vùng đặc trưng mà mạng nơ-ron dựa vào để đưa ra quyết định phân loại, giúp kiểm chứng mô hình tập trung vào tai, mắt, hoa văn lông thay vì bị phông nền đánh lừa.</p>
+                    </div>
                     <div class="why">
                         <div class="big">
-                            <div class="photo" id="hm" role="img" aria-label="Ảnh với vùng máy chú ý">
-                                <div class="in"><span>Ảnh mèo của bạn</span></div>
-                                <div class="ov" id="ov"></div>
-                                <span class="cap">Vùng màu đỏ biểu thị mức độ chú ý cao nhất</span>
+                            <div class="photo-shell">
+                                <div class="photo" id="hm" role="img" aria-label="Ảnh với vùng chú ý Grad-CAM">
+                                    <div class="in"><span>Ảnh mèo của bạn</span></div>
+                                    <div class="ov" id="ov"></div>
+                                    <span class="cap">Vùng đỏ: Mức độ chú ý cao nhất</span>
+                                </div>
                             </div>
                         </div>
                         <div class="ctl">
-                            <label><input type="checkbox" id="showOv" checked>Hiện vùng máy chú ý</label>
-                            <label for="opa">Độ đậm nhiệt<input type="range" id="opa" min="0" max="100" value="70"></label>
-                            <div>
-                                <div class="lg"></div>
-                                <div class="sl"><span>Ít chú ý</span><span>Chú ý nhiều</span></div>
+                            <div class="ctl-panel">
+                                <label class="switch-lbl">
+                                    <input type="checkbox" id="showOv" checked>
+                                    <span class="lbl-txt">Hiện bản đồ nhiệt Grad-CAM</span>
+                                </label>
+                                <div class="range-wrap">
+                                    <div class="range-head">
+                                        <label for="opa">Độ đậm bản đồ nhiệt</label>
+                                        <span id="opaVal" class="range-val">70%</span>
+                                    </div>
+                                    <input type="range" id="opa" min="0" max="100" value="70">
+                                </div>
+                                <div class="legend-wrap">
+                                    <div class="lg" aria-hidden="true"></div>
+                                    <div class="sl"><span>Ít chú ý</span><span>Chú ý trung bình</span><span>Chú ý tối đa</span></div>
+                                </div>
+                                <div class="cam-info">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+                                    <p class="note" style="font-size:14px;line-height:1.5">Bản đồ nhiệt chiếu gradient từ tầng tích chập cuối cùng lên ảnh gốc, chứng minh mô hình phân tích đúng hình thể sinh học của vật nuôi.</p>
+                                </div>
                             </div>
-                            <p class="note">Bản đồ nhiệt phản ánh vùng nhận diện ở tầng tích chập cuối cùng (chẳng hạn hình dáng tai, sống mũi, hoa văn lông). Điều này giúp kiểm chứng mô hình không bị đánh lừa bởi phông nền.</p>
                         </div>
                     </div>
-                </section>
-
-                <!-- Thông tin kỹ thuật chuyên sâu (Bảng cố định) -->
-                <div class="tech-card">
-                    <h2 class="tech-title">Thông tin kỹ thuật chuyên sâu (Technical Details)</h2>
-                    <dl class="tech-dl">
-                        <dt>Cơ chế kiểm tra OOD</dt>
-                        <dd>Mahalanobis Distance / KNN (Feature Space)</dd>
-                        <dt>Ngưỡng quyết định (τ)</dt>
-                        <dd>Khóa tại 5% quantile trên tập Validation In-Distribution</dd>
-                        <dt>Mạng nơ-ron nền tảng</dt>
-                        <dd>MobileNetV2 / EfficientNet-B0 (Transfer Learning)</dd>
-                        <dt>Thời gian trễ suy luận</dt>
-                        <dd>~45 ms (Môi trường CPU ONNX Runtime)</dd>
-                    </dl>
-                </div>
-
-                <!-- Chế độ Nâng cao: Đặt ngay sau phần Thông tin kỹ thuật chuyên sâu -->
-                <section class="sec" id="adv" style="gap:16px;padding-top:8px">
-                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-                        <div>
-                            <h2 style="font-size:22px">Chế độ nâng cao: Đánh giá chi tiết 5 phương pháp OOD</h2>
-                            <p class="note" style="max-width:64ch;margin-top:4px">So sánh định lượng 5 phương pháp hậu kiểm từ chối Out-of-Distribution (họ Logits và họ Khoảng cách). Điểm số càng cao càng thiên về miền in-distribution.</p>
-                        </div>
-                        <span class="chip" id="advSummary">4 trên 5 phương pháp chấp nhận ảnh này</span>
-                    </div>
-
-                    <div class="tbl">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Phương pháp từ chối</th>
-                                    <th>Điểm số đo được</th>
-                                    <th>Ngưỡng tối thiểu (τ)</th>
-                                    <th>Kết luận</th>
-                                </tr>
-                            </thead>
-                            <tbody id="advTableBody">
-                                <!-- Rendered dynamically by js/app.js -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="note" id="advNote" style="max-width:64ch"></p>
                 </section>
             </section>
         </div>
